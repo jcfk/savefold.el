@@ -15,6 +15,7 @@
 (source "jcs-elpa")
 
 (depends-on "emacs" "28.1")
+(depends-on "compat" "29.1")
 (development
   (depends-on "buttercup")
   (depends-on "origami")

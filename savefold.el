@@ -6,7 +6,7 @@
 ;; Keywords: convenience
 ;; Homepage: https://github.com/jcfk/savefold.el
 
-;; Package-Requires: ((emacs "28.1"))
+;; Package-Requires: ((emacs "28.1") (compat "29.1"))
 
 ;; Permission is hereby granted, free of charge, to any person obtaining a copy
 ;; of this software and associated documentation files (the “Software”), to deal

@@ -26,9 +26,8 @@
 
 ;;; Code:
 
+(require 'compat)
 (require 'savefold)
-
-(defalias 'savefold-utils--readablep 'readablep)  ;; Missing in Emacs 28
 
 (defvar savefold-utils--fpath-to-attr-table (make-hash-table :test #'equal)
   "Hash table mapping file paths to file attribute hash tables.")
@@ -77,9 +76,7 @@ to save them to the disk.
 Use FPATH instead of the current buffer file if non-nil."
   (when-let* ((fpath
                (or fpath (and (buffer-file-name) (expand-file-name (buffer-file-name))))))
-    ;; Check readability; use compat for <29?
-    (when (and (version< "29" emacs-version)
-               (not (savefold-utils--readablep value)))
+    (when (not (readablep value))
       (error "savefold: File attr value must be readablep"))
     (puthash attr value (savefold-utils--get-file-attr-table fpath))))
 
