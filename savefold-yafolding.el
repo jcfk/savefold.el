@@ -44,7 +44,7 @@
 
 (defun savefold-yafolding--yafolding-foldp (ov)
   "Check whether OV is a yafolding fold overlay."
-  (equal (overlay-get ov 'category) "yafolding"))
+  (eq (overlay-get ov 'category) 'yafolding))
 
 (defun savefold-yafolding--save-folds ()
   "Save yafolding fold data for the current buffer."
