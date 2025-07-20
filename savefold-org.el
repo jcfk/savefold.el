@@ -50,9 +50,9 @@
 (require 'savefold-outline)
 
 (defvar org-fold-core-style)  ;; Missing in Emacs 28
-(defalias 'savefold-org--org-fold-get-regions 'org-fold-get-regions)  ;: Missing in Emacs 28
-(defalias 'savefold-org--org-fold-region 'org-fold-region)  ;; Missing in Emacs 28
-(defalias 'savefold-org--org-flag-region 'org-flag-region)  ;; Obsolete in Emacs 29+
+(defalias 'savefold-org--org-fold-get-regions #'org-fold-get-regions)  ;: Missing in Emacs 28
+(defalias 'savefold-org--org-fold-region #'org-fold-region)  ;; Missing in Emacs 28
+(defalias 'savefold-org--org-flag-region #'org-flag-region)  ;; Obsolete in Emacs 29+
 
 ;;;; Old-fashioned folding
 
@@ -87,7 +87,6 @@ reason for this to be non-nil."
       (save-excursion
         (goto-char start)
         (org-babel-hide-result-toggle-maybe)))
-     ;; org-flag-region is obsolete as of emacs 29/org 9.6
      (t (savefold-org--org-flag-region start end t spec)))))
 
 (defun savefold-org--old-fashioned-recover-folds ()
