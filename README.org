@@ -1,4 +1,4 @@
-* savefold.el [[https://github.com/jcfk/savefold.el/actions/workflows/test.yml][file:https://github.com/jcfk/savefold.el/actions/workflows/test.yml/badge.svg]]
+* savefold.el [[https://github.com/jcfk/savefold.el/actions/workflows/test.yml][file:https://github.com/jcfk/savefold.el/actions/workflows/test.yml/badge.svg]] [[https://melpa.org/#/savefold][file:https://melpa.org/packages/savefold-badge.svg]]
 
 This package is a family of global minor modes that persist folds made by
 various existing (mostly) overlay-based folding systems, saving them to the disk
