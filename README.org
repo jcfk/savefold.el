@@ -11,6 +11,7 @@ and reapplying upon file open. Currently supported:
 - [[https://github.com/emacs-tree-sitter/ts-fold][ts-fold]] / [[https://github.com/emacs-tree-sitter/treesit-fold][treesit-fold]]
 - [[https://github.com/emacsorphanage/yafolding][yafolding]]
 - Manual folding in [[https://www.emacswiki.org/emacs/HideIfDef][hide-ifdef-mode]]
+- [[https://github.com/jrblevin/markdown-mode][markdown-mode]]
 
 Rationale: there are billions of different types of folds in emacs, and very few
 of the packages implement persistence. It makes sense for fold persistence to be

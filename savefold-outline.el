@@ -32,13 +32,17 @@
 
 (defvar savefold-outline--folds-attr 'savefold-outline-folds)
 
+(defun savefold-outline--make-fold (fold-data)
+  "Make markdown fold from FOLD-DATA."
+  (cl-destructuring-bind (start end) fold-data
+    (outline-flag-region start end t)))
+
 (defun savefold-outline--recover-folds ()
   "Read and apply saved outline fold data for the current buffer."
   ;; Maybe find away to abstract out this recency check
   (savefold-utils--unless-file-recently-modified
    (mapc
-    (lambda (fold-data)
-      (outline-flag-region (car fold-data) (cadr fold-data) t))
+    #'savefold-outline--make-fold
     (savefold-utils--get-file-attr savefold-outline--folds-attr))))
 
 (defun savefold-outline--outline-foldp (ov)
