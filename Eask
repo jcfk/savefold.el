@@ -23,6 +23,6 @@
   (depends-on "tree-sitter-langs")
   (depends-on "ts-fold")
   (depends-on "yafolding")
-  (depends-on "treesit-fold")
+  (depends-on "treesit-fold" "29.1")
   (depends-on "markdown-mode"))
 (load-paths "./tests")
