@@ -23,6 +23,9 @@
   (depends-on "tree-sitter-langs")
   (depends-on "ts-fold")
   (depends-on "yafolding")
-  (depends-on "treesit-fold" "29.1")
-  (depends-on "markdown-mode"))
+  (depends-on "markdown-mode")
+
+  ;; This dep is only needed for version <= 28. Keep here at the end.
+  ;; See .github/workflows/test.yml
+  (depends-on "treesit-fold"))
 (load-paths "./tests")
