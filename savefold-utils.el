@@ -39,8 +39,14 @@ This naively replaces path slashes with ! (/a/b/c -> !a!b!c) leading to a chance
 of collision."
   (let* ((fpath (expand-file-name fpath))
          (fpath (string-replace "/" "!" fpath))
-         (fpath (string-replace ":" "!" fpath)))  ; For windows
-    (expand-file-name fpath savefold-directory)))
+         (fpath (string-replace ":" "!" fpath))  ; For windows
+         (old-fpath (expand-file-name fpath savefold-directory))
+         (new-fpath (expand-file-name (concat fpath ".savefold")
+                                      savefold-directory)))
+    (if (and (file-exists-p old-fpath)
+             (not (file-exists-p new-fpath)))
+        old-fpath
+      new-fpath)))
 
 (defun savefold-utils--get-file-attr-table (fpath)
   "Get the attribute hash table for file FPATH.
