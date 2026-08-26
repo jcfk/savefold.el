@@ -27,25 +27,38 @@
 ;;; Code:
 
 (require 'hideshow)
+(require 'seq)
 (require 'savefold-utils)
 
 (defvar savefold-hideshow--folds-attr 'savefold-hideshow-folds)
 
+(defun savefold-hideshow--adapt-fold-data (fold-data)
+  "Return fields from FOLD-DATA supported by the current Hideshow.
+
+Emacs 31 removed the optional block-offset arguments from `hs-make-overlay'."
+  (seq-take fold-data (cdr (func-arity #'hs-make-overlay))))
+
+(defun savefold-hideshow--make-overlay (fold-data)
+  "Restore a Hideshow overlay from saved FOLD-DATA.
+
+Hideshow removed its optional block-offset arguments in Emacs 31.  Limit the
+saved fields to the maximum arity supported by the current implementation, so
+five-field data from older Emacs versions remains readable after an upgrade."
+  (apply #'hs-make-overlay (savefold-hideshow--adapt-fold-data fold-data)))
+
 (defun savefold-hideshow--recover-folds ()
   "Read and apply saved hideshow fold data for the current buffer."
   (savefold-utils--unless-file-recently-modified
-   (mapc
-    (lambda (fold-data)
-      (cl-destructuring-bind (start end kind b-offset e-offset) fold-data
-        (hs-make-overlay start end kind b-offset e-offset)))
-    (savefold-utils--get-file-attr savefold-hideshow--folds-attr))))
+   (mapc #'savefold-hideshow--make-overlay
+         (savefold-utils--get-file-attr savefold-hideshow--folds-attr))))
 
 (defun savefold-hideshow--get-fold-data (ov)
-  `(,(overlay-start ov)
-    ,(overlay-end ov)
-    ,(overlay-get ov 'hs)
-    ,(overlay-get ov 'hs-b-offset)
-    ,(overlay-get ov 'hs-e-offset)))
+  (savefold-hideshow--adapt-fold-data
+   `(,(overlay-start ov)
+     ,(overlay-end ov)
+     ,(overlay-get ov 'hs)
+     ,(overlay-get ov 'hs-b-offset)
+     ,(overlay-get ov 'hs-e-offset))))
 
 (defun savefold-hideshow--hideshow-foldp (ov)
   "Check whether OV is a hideshow fold overlay."
@@ -87,4 +100,3 @@
 (provide 'savefold-hideshow)
 
 ;;; savefold-hideshow.el ends here
-

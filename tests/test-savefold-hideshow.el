@@ -49,7 +49,8 @@
           (expect
            (not (savefold-utils--get-overlays 'savefold-hideshow--hideshow-foldp))))))
 
-    (it "recovers folds upon file open"
+    ;; The fixture uses the pre-Emacs 31 five-field format, including offsets.
+    (it "recovers folds saved by older Hideshow versions"
       (savefold-test-utils--with-temp-savefold-environment source-fpath attr-fpath
         (savefold-test-utils--with-open-file temp-source-fpath
           (hs-minor-mode)
@@ -58,7 +59,9 @@
             (mapcar
              'savefold-hideshow--get-fold-data
              (savefold-utils--get-overlays 'savefold-hideshow--hideshow-foldp))
-            (savefold-utils--get-file-attr savefold-hideshow--folds-attr))))))
+            (mapcar
+             'savefold-hideshow--adapt-fold-data
+             (savefold-utils--get-file-attr savefold-hideshow--folds-attr)))))))
 
     (it "saves folds upon file close"
       (savefold-test-utils--with-temp-savefold-environment source-fpath attr-fpath
@@ -72,9 +75,11 @@
         (expect
          (savefold-test-utils--sets-equalp
           (savefold-utils--get-file-attr savefold-hideshow--folds-attr temp-source-fpath)
-          '((475 791 comment 431 791)
-            (375 428 code -38 0)
-            (231 253 code -26 0)))))))
+          (mapcar
+           'savefold-hideshow--adapt-fold-data
+           '((475 791 comment 431 791)
+             (375 428 code -38 0)
+             (231 253 code -26 0))))))))
 
   (describe "when turned back off"
     (before-all

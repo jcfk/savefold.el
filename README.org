@@ -52,7 +52,7 @@ and comments are also very welcome.
 Development guidelines:
 
 - Savefold uses [[https://emacs-eask.github.io/][Eask]] for environment management and [[https://github.com/jorgenschaefer/emacs-buttercup][Buttercup]] for testing.
-- Savefold supports Emacs versions 28, 29, and 30.
+- Savefold supports Emacs versions 28, 29, 30, and 31.
 - If you're adding new functionality, please also create the relevant tests.
 
 Before sending a PR, ensure (within reason):
